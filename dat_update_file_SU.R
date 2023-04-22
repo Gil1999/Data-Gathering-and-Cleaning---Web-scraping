@@ -3,7 +3,7 @@ library(kit)
 library(rvest)
 
 
-setwd("C:/Users/gilbe/Desktop/Arbeit Lehrstuhl Statistik/Landtagswahlen")
+setwd("")
 
 drop_identical_columns <-function(table){
   table_new <- table[,!duplicated(colnames(table))]
@@ -265,7 +265,7 @@ dat_SU$end_date <- as.character(dat_SU$end_date)
 dat_SU$end_date <- format(as.Date(dat_SU$end_date, '%Y-%m-%d'), "%d/%m/%Y")
 
 ### EXPORT UPDATED DATASET
-path_to_export <- "/Users/gilbe/Desktop/Arbeit Lehrstuhl Statistik/Landtagswahlen"
+path_to_export <- ""
 file_name <- paste("//dat_W_",Sys.Date(),".csv",sep="")
 
 write.csv(dat_SU,
