@@ -73,16 +73,10 @@ transform_table_type_1 <- function(table){
   colnames_df_t <- gsubfn(pattern="[[:punct:]]", engine = "R", 
                           replacement=function(x) 
                             ifelse(x=="/","/",""),colnames_df_t)
-  
-  #colnames_df_t <- str_trim(colnames_df_t)
-  #colnames_df_t <- gsub(" ","_",colnames_df_t)
-  
   colnames(df) <- colnames_df_t
-  
   #delete last row since only text
   df <- df[1:nrow(df)-1,]
   return(df)
-  
 }
 
 transform_table_type_2 <- function(table){
@@ -114,7 +108,6 @@ table_SL[nrow(table_SL)+1,] <- "SL"
 
 list_tables_type1 <- list(table_BW,table_HB,table_RP,table_SL)
 list_tables_type1 <- lapply(list_tables_type1,transform_table_type_1)
-
 
 table_BY_t <- t(tables_BY[[2]])
 table_BY_t <- cbind(table_BY_t,"BY")
@@ -157,7 +150,6 @@ list_tables_type2 <- list(table_BY_t,table_BE_t,table_BB_t,table_HH_t,table_HE_t
                           table_SH_t,table_TH_t)
 list_tables_type2 <- lapply(list_tables_type2,transform_table_type_2)
 
-
 for(i in 1:length(list_tables_type1)){
   colnames(list_tables_type1[[i]])[1] <- "key"
   length_coln <- length(colnames(list_tables_type1[[i]]))
@@ -171,7 +163,6 @@ for(i in 1:length(list_tables_type2)){
   colnames(list_tables_type2[[i]])[length_coln] <- "t"
   colnames(list_tables_type2[[i]])[length_coln-1] <- "BL"
 }
-
 
 list_LW <- c(list_tables_type1,list_tables_type2)
 
@@ -192,12 +183,6 @@ dat_new <- bind_rows(list_LW[[1]],
                      list_LW[[15]],
                      list_LW[[16]])
 
-#drop_identical_columns <-function(df){
- # new <- df[,!duplicated(colnames(df))]
-  #return(new)
-#}
-
-#dat_new <- drop_identical_columns(dat_new)
 dat_new <- dat_new %>% select(where(~!all(is.na(.)))) %>% clean_names()
 glimpse(dat_new)
 #check if R detects columns as unique
@@ -248,9 +233,7 @@ dat_new_WB <- transform(dat_new_WB, Gruene.Z=psum(grune, bundnis,b_grune,grune_g
 dat_new_WB <- transform(dat_new_WB, DIE_LINKE.Z=psum(pds_die_linke,die_linke,pds_die_linke_2, na.rm=TRUE))
 dat_new_WB <- transform(dat_new_WB, FDP.Z=psum(fdp_dvp,fdp, na.rm=TRUE))
 
-
 bind_cols(dat_new_Sitze,dat_new_WB)
-
 
 glimpse(transform_df(dat_new_Sitze))
 glimpse(transform_df(dat_new_WB))
