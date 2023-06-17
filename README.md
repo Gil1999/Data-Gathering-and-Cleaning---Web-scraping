@@ -1,4 +1,2 @@
 # Web Scraping and Data Cleaning
-- Building a web scraper to collect online survey data for German state
-elections.
-- Transform the data in a way that we can apply it for building a RShiny web application. (ongoing)
+The goal of this project was to create two data sets consisting of survey data and historical data from Germany using web scraping. Two systems were also developed to easily update the datasets. 
